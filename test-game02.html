@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>クリックゲーム</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+
+    #game-area {
+      width: 300px;
+      height: 300px;
+      border: 2px solid black;
+      margin: 20px auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .target {
+      width: 30px;
+      height: 30px;
+      background-color: red;
+      position: absolute;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>クリックゲーム</h1>
+  <p>赤い円をクリックして得点を稼ごう！</p>
+  <div id="game-area">
+    <div class="target" id="target"></div>
+  </div>
+  <p>スコア: <span id="score">0</span></p>
+
+  <script>
+    const gameArea = document.getElementById('game-area');
+    const target = document.getElementById('target');
+    const scoreDisplay = document.getElementById('score');
+    let score = 0;
+
+    function getRandomPosition() {
+      const x = Math.floor(Math.random() * (gameArea.clientWidth - target.clientWidth));
+      const y = Math.floor(Math.random() * (gameArea.clientHeight - target.clientHeight));
+      return { x, y };
+    }
+
+    function moveTarget() {
+      const { x, y } = getRandomPosition();
+      target.style.left = `${x}px`;
+      target.style.top = `${y}px`;
+    }
+
+    target.addEventListener('click', () => {
+      score++;
+      scoreDisplay.textContent = score;
+      moveTarget();
+    });
+
+    // 初期位置を設定
+    moveTarget();
+  </script>
+</body>
+
+</html>
