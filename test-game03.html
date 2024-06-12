@@ -56,10 +56,16 @@
     .start-button:hover {
       background-color: #218838;
     }
+
+    .scoreboard {
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
   </style>
 </head>
 
 <body>
+  <div class="scoreboard">スコア: <span id="score">0</span></div>
   <button class="start-button" onclick="startGame()">ゲームスタート</button>
   <div class="game-container">
     <div class="hole" id="hole1">
@@ -93,6 +99,7 @@
   <script>
     const holes = document.querySelectorAll('.hole');
     const moles = document.querySelectorAll('.mole');
+    const scoreBoard = document.getElementById('score');
     let lastHole;
     let timeUp = false;
     let score = 0;
@@ -123,6 +130,7 @@
 
     function startGame() {
       score = 0;
+      scoreBoard.textContent = score;
       timeUp = false;
       peep();
       setTimeout(() => timeUp = true, 10000);
@@ -132,6 +140,7 @@
       if (!e.isTrusted) return;
       score++;
       this.style.display = 'none';
+      scoreBoard.textContent = score;
     }
 
     moles.forEach(mole => mole.addEventListener('click', bonk));
