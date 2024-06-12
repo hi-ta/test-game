@@ -61,6 +61,13 @@
       margin-bottom: 20px;
       font-size: 24px;
     }
+
+    .game-over {
+      display: none;
+      font-size: 32px;
+      color: red;
+      margin-top: 20px;
+    }
   </style>
 </head>
 
@@ -96,10 +103,12 @@
       <div class="mole" id="mole9"></div>
     </div>
   </div>
+  <div class="game-over" id="gameOver">GAME OVER</div>
   <script>
     const holes = document.querySelectorAll('.hole');
     const moles = document.querySelectorAll('.mole');
     const scoreBoard = document.getElementById('score');
+    const gameOverText = document.getElementById('gameOver');
     let lastHole;
     let timeUp = false;
     let score = 0;
@@ -132,8 +141,12 @@
       score = 0;
       scoreBoard.textContent = score;
       timeUp = false;
+      gameOverText.style.display = 'none';
       peep();
-      setTimeout(() => timeUp = true, 10000);
+      setTimeout(() => {
+        timeUp = true;
+        gameOverText.style.display = 'block';
+      }, 10000);
     }
 
     function bonk(e) {
